@@ -1,0 +1,15 @@
+FROM ubuntu
+
+ENV DOS_TEST_URL=https://www.example.com \
+    DOS_TEST_METHOD=GET \
+    DOS_TEST_TIMEOUT=20 \
+    DOS_TEST_USERS=50
+
+RUN apt-get update && apt-get install -y slowhttptest
+
+ENTRYPOINT ["/usr/bin/slowhttptest", "-u", "$DOS_TEST_URL", "-m", "$DOS_TEST_METHOD", "-t", "$DOS_TEST_TIMEOUT", "-c", "$DOS_TEST_USERS"]
+
+# How to run it:
+# docker run -e DOS_TEST_URL=<URL> -e DOS_TEST_METHOD=<Method> -e DOS_TEST_TIMEOUT=<Timeout> -e DOS_TEST_USERS=<Number of Users> <Image>
+
+

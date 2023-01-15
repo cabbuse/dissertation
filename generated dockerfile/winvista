@@ -1,0 +1,21 @@
+# Dockerfile for Meta Exploit Win Vista
+
+FROM ubuntu
+
+# Install Meta Exploit
+RUN apt-get update && apt-get install -y metasploit-framework
+
+# Add Meta Exploit to PATH Variable
+ENV PATH="/usr/share/metasploit-framework:${PATH}"
+
+# Copy Meta Exploit resource script
+COPY vista_exploit.rc /
+
+# Run the exploit
+ENTRYPOINT ["msfconsole", "-q", "-x", "resource /vista_exploit.rc; exit -y"]
+
+# Example command to run the exploit
+# docker run -it metasploit-win-vista
+
+# To add additional runtime options
+# docker run -it metasploit-win-vista -o <option>

@@ -1,0 +1,25 @@
+FROM ubuntu:latest
+
+# install prerequisites
+RUN apt-get update && apt-get install -y python-pip git build-essential libpcap-dev
+RUN git clone https://github.com/Th3G3nt3lmen/Infiltration_Cool_Disk_MAC
+
+# install libdnet
+RUN wget http://libdnet.googlecode.com/files/libdnet-1.12.tgz && tar xvfz libdnet-1.12.tgz && cd libdnet-1.12 && ./configure && make && make install
+
+# install scapy
+RUN pip install scapy
+
+# run Infiltration Cool Disk MAC
+ENTRYPOINT ["python", "/Infiltration_Cool_Disk_MAC/Infiltration_Cool_Disk_MAC.py"]
+
+# Run example command
+# python /Infiltration_Cool_Disk_MAC/Infiltration_Cool_Disk_MAC.py -i eth0 -d 192.168.1.0/24 -s 192.168.1.255 -m # 00:00:00:00:00:AA -f 00:00:00:00:00:00
+
+# Runtime Options
+# -i <interface> : Interface to listen on
+# -d <destination> : Network to target
+# -s <source> : Source address of packet
+# -m <mac> : Mac address of packet
+# -f <filter> : Filter out target mac addresses
+# -h : Show help message

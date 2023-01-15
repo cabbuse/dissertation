@@ -1,0 +1,31 @@
+# Create a Dockerfile to run infiltration Dropbox download
+
+# Step 1: Start from a base image
+FROM ubuntu:16.04
+
+# Step 2: Install the necessary system packages
+RUN apt-get update && apt-get -y install wget
+
+# Step 3: Download infiltration from Dropbox
+RUN wget https://www.dropbox.com/s/q3q3q3q3q3q3q3q3q3q3q3q3q3q3q3/infiltration.zip
+
+# Step 4: Unzip the downloaded infiltration file
+RUN unzip infiltration.zip
+
+# Step 5: Make infiltration executable
+RUN chmod +x infiltration
+
+# Step 6: Create an entrypoint to run infiltration
+ENTRYPOINT ["./infiltration"]
+
+# Step 7: Set optional runtime options
+# For example:
+# --help     Show help messages
+# --version  Show infiltration version
+
+# Step 8: Run infiltration
+CMD ["--help"]
+
+# Example command to run infiltration:
+# docker run -it --rm infiltration --version
+

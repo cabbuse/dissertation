@@ -1,0 +1,46 @@
+#Pull the latest Ubuntu image
+FROM ubuntu:latest
+
+#Maintainer info
+MAINTAINER yourname <youremail@domain.com>
+
+# Update packages
+RUN apt-get update
+
+#Install dependencies
+RUN apt-get install -y python3 python3-pip
+RUN apt-get install -y curl
+
+#Add source code for the web attack
+ADD https://github.com/secdev/scapy/archive/master.zip /
+
+#Unzip the source code
+RUN unzip master.zip
+
+#Install python packages
+RUN pip3 install networkx
+RUN pip3 install scapy-ssl_tls
+RUN pip3 install scapy-http
+
+#Set working directory
+WORKDIR /scapy-master/examples/cicids2017/
+
+#Run the web attack
+CMD ["python3", "web_attack.py"]
+
+#Example command to run the Dockerfile
+docker run -it cicids2017-web-attack
+
+#Runtime options
+
+# -it: This will run the container interactively and allocate a tty for the container process.
+
+# --rm: This will remove the container after it exits.
+
+# --net=host: This will allow the container to use host's network.
+
+# --name: This will give the container a custom name.
+
+#Example command to run the Dockerfile with runtime options
+docker run -it --rm --net=host --name my_cicids2017-web-attack cicids2017-web-attack
+

@@ -1,0 +1,8 @@
+build image
+
+docker build -t maybeloit -f loit .
+
+
+run image
+
+docker run --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" maybeloit

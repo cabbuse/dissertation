@@ -1,0 +1,11 @@
+build dockerfile
+
+run 
+docker run -it w3brute -h
+for help
+
+
+example
+
+docker run -it w3brute -t http://www.example.com/admin/login.php
+

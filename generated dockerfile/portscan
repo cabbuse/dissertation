@@ -1,0 +1,33 @@
+# Dockerfile to run portscan
+
+FROM ubuntu
+
+MAINTAINER Your Name <your@email.com>
+
+RUN apt-get update && apt-get install -y nmap
+
+# Copy portscan.sh script to the container
+COPY portscan.sh /
+
+# Give permission to execute the script
+RUN chmod +x portscan.sh
+
+ENTRYPOINT [ "/portscan.sh" ]
+
+# How to run without firewall rules
+
+$ docker build -t portscan .
+$ docker run portscan <target_ip_address>
+
+# How to run with firewall rules
+
+$ docker build -t portscan .
+$ docker run --cap-add=NET_RAW --cap-add=NET_ADMIN portscan <target_ip_address>
+
+# Example
+
+$ docker build -t portscan .
+$ docker run --cap-add=NET_RAW --cap-add=NET_ADMIN portscan 192.168.1.1
+
+# Information
+The --cap-add argument is necessary to run the port scan within the container. Without it, the port scan will not

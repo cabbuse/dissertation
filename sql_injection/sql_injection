@@ -1,0 +1,8 @@
+FROM python:3
+RUN apt-get -y update
+RUN apt-get install -y git
+RUN git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+RUN ls -al
+WORKDIR sqlmap-dev
+ENTRYPOINT ["python3","sqlmap.py"]
+CMD ["-h"]

@@ -1,0 +1,9 @@
+docker build -f hulkgokdocker  -t hulkmaybe .
+to build container
+
+
+docker run hulkmaybe https://google.com 
+or 
+docker run hulkmaybe $website 
+
+to run container

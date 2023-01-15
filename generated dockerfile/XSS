@@ -1,0 +1,12 @@
+FROM ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install -y python3 python3-pip wget git
+
+# install the XSS attack tool
+RUN git clone https://github.com/OWASP/XSStrike.git
+WORKDIR XSStrike
+RUN pip3 install -r requirements.txt
+
+# execute XSS attack
+CMD python3 xsstrike.py -u <URL>

@@ -1,0 +1,8 @@
+build docker file
+
+run 
+docker run -it -u <URL>
+
+see
+https://github.com/sqlmapproject/sqlmap.git
+for options and info
