@@ -1,3 +1,6 @@
-build docker file 
+./runslowhttptest -u
 
-docker run slowhttptest
+url = apache:80
+as container is name apache and is on local port 80 which is mapped to 8080 outside of container network on the machine host
+
+remember YOU HAVE TO SUPPLY ALL 4 ARGUMENTS

@@ -3,6 +3,4 @@ build image
 docker build -t maybeloit -f loit .
 
 
-run image
-
-docker run --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" maybeloit
+./runloic.sh rates threads <ipaddress of apache container> e.g 172.20.0.3

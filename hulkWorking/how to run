@@ -2,8 +2,5 @@ docker build -f hulkgokdocker  -t hulkmaybe .
 to build container
 
 
-docker run hulkmaybe https://google.com 
-or 
-docker run hulkmaybe $website 
+./runhulk.sh http://apache:80 safe
 
-to run container
