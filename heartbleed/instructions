@@ -21,3 +21,10 @@ exploit
 
 
 (in msf console)
+
+
+
+with the yaml now working
+
+ya can just launch docker compose -f heartbleed.yaml uo 
+and it works bruva
